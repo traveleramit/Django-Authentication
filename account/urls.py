@@ -19,4 +19,3 @@ urlpatterns = [
     # Home View
     path('', views.dashboard, name='dashboard'),
 ]
-
