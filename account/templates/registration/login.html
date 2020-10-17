@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+
+    {% if request.user.is_authenticated == False %}
+        <div class="col-12 col-lg-5 mt-4">
+            <div class="card border-info">
+                <div class="card-header text-lg-center text-white bg-info">
+                    <h5>Login</h5>
+                </div>
+                <div class="card-body">
+                    {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        Username or Password didn't match. Please try again.
+                    </div>
+                    {% endif %}
+                    <form action="{% url 'login' %}" method="post">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="text" name="username" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                        </div>
+
+                        <div class="form-group">
+                            <a href="{% url 'password_reset' %}">Forgot Password?</a>
+                        </div>
+
+                        {% csrf_token %}
+                        <!-- <input type="hidden" name="next" value="{{ next }}"> -->
+
+                        <input class="btn btn-info" type="submit" value="Log in">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="col-12">
+            <h3>You're Already Logged In.</h3>
+            <h5>Redirecting to Dashboard...</h5>
+        </div>
+        <meta http-equiv="REFRESH" content="3;url=http://localhost:8000/account/">
+
+    {% endif %}
+    </div>
+{% endblock %}
